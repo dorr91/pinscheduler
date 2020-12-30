@@ -1,0 +1,11 @@
+{
+    "pin_configs": [
+        {
+            "pin": 16,
+            "total_on_sec": 10,
+            "on_sec": 4,
+            "off_sec": 6,
+            "cron_str": "0 * * * * *"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+Plant waterer project using ESP8266 boards.
+
+Setup:
+
+* Create `include/wifi_secrets.h` with constants for wifi_ssid and wifi_password.
+
+Configure a new board:
+
+* Set hostname in data/hostname to something unique.
+* Upload files to board with `pio run -t uploadfs`

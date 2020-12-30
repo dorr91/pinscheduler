@@ -1,0 +1,4 @@
+.pio
+.env
+*.swp
+include/wifi_secrets.h
