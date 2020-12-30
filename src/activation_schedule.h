@@ -40,7 +40,10 @@ class ActivationSchedule {
         std::map<CronId, PinSchedule> pin_schedules_;
 };
 
+// Global ActivationSchedule is necessary for looking up pin schedules when
+// cron triggers
 extern ActivationSchedule PinScheduler;
 // CronAlarms callback that activates the pin for the current alarm
+// Must be a bare function since CronAlarms takes a function pointer (not e.g. a std::function)
 void ActivatePin();
 

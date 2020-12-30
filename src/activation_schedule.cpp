@@ -67,16 +67,23 @@ bool ActivationSchedule::ParseConfig(StaticJsonDocument<1024> config) {
     int i = 0;
     JsonArray pin_configs = config["pin_configs"];
     for (const auto& pin_config : pin_configs) {
-        // TODO dynamic allocation could lead to memory fragmentation over time
-        char *cron_str = strdup(pin_config["cron_str"]);
+        // TODO avoid dynamic allocation since it can lead to memory
+        // fragmentation over time
+        const char *src_cron_str = pin_config["cron_str"];
+        if (src_cron_str == nullptr) {
+            Serial.print("Found a null cron str in pin config #");
+            Serial.println(i);
+            continue;
+        }
+        char *cron_str = strdup(src_cron_str);
+
         PinSchedule sched = {
             .pin = pin_config["pin"], .total_on_sec = pin_config["total_on_sec"],
             .on_sec = pin_config["on_sec"], .off_sec = pin_config["off_sec"],
             .cron_str = cron_str,
         };
         if (sched.pin < 0 || sched.total_on_sec < 0 || sched.on_sec < 0
-                || sched.off_sec < 0 || sched.cron_str == nullptr
-                || strlen(sched.cron_str) == 0) {
+                || sched.off_sec < 0 || strlen(sched.cron_str) == 0) {
             Serial.print("Couldn't parse JSON config: invalid pin schedule at #");
             Serial.println(i);
             return false;
