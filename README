@@ -1,4 +1,4 @@
-Plant waterer project using ESP8266 boards.
+Scheduled pin activation project using ESP8266 boards.
 
 Setup:
 
@@ -6,5 +6,6 @@ Setup:
 
 Configure a new board:
 
-* Set hostname in data/hostname to something unique.
+* Set hostname in `data/hostname` to something unique.
+* Create a pin schedule in `data/schedule.json`
 * Upload files to board with `pio run -t uploadfs`
